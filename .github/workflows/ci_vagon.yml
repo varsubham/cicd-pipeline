@@ -41,15 +41,15 @@ jobs:
             sudo docker stop githubactions-cicd-pipeline || true
             sudo docker rm githubactions-cicd-pipeline || true
 
-            echo "Starting new container..."
-            sudo docker run -d --name githubactions-cicd-pipeline -p 8080:8080 githubactions-cicd-pipeline-new
-            echo "Starting new container..."
+            # echo "Starting new container..."
+            # sudo docker run -d --name githubactions-cicd-pipeline -p 8080:8080 githubactions-cicd-pipeline-new
+            # echo "Starting new container..."
 
-            # sudo docker run -d \
-            #   --name githubactions-cicd-pipeline \
-            #   -p 3000:80 \
-            #   --restart always \
-            #   githubactions-cicd-pipeline-new
+            sudo docker run -d \
+              --name githubactions-cicd-pipeline \
+              -p 3000:80 \
+              --restart always \
+              githubactions-cicd-pipeline-new
 
             # echo "Checking container..."
 
