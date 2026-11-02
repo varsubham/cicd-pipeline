@@ -1,10 +1,10 @@
 name: Deploy Frontend to AWS EC2
 
 on:
-  workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
+  #workflow_dispatch:
+  push:
+   branches:
+     - main
 
 jobs:
   deploy:
@@ -47,7 +47,7 @@ jobs:
 
             sudo docker run -d \
               --name githubactions-cicd-pipeline \
-              -p 3000:80 \
+              -p 3000:3000 \
               --restart always \
               githubactions-cicd-pipeline-new
 
