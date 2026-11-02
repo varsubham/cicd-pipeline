@@ -51,7 +51,7 @@ jobs:
               --restart always \
               githubactions-cicd-pipeline-new
 
-            echo "Checking container..."
+            echo "Checking container...."
 
             sleep 5
 
