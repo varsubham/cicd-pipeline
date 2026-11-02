@@ -1,9 +1,10 @@
 name: Deploy Frontend to AWS EC2
 
-on: workflow_dispatch
-  #  push:
-  #    branches:
-  #      - main
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
   deploy:
@@ -19,7 +20,6 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
-
           script: |
             set -e
 
@@ -32,7 +32,7 @@ jobs:
             echo "Creating env file..."
             cat <<EOF > .env
             ${{ secrets.ENV_FILE }}
-             EOF
+            EOF
 
             echo "Building Docker image..."
             sudo docker build --no-cache -t githubactions-cicd-pipeline-new .
@@ -41,7 +41,9 @@ jobs:
             sudo docker stop githubactions-cicd-pipeline || true
             sudo docker rm githubactions-cicd-pipeline || true
 
-            # echo "Starting new container..."
+            echo "Starting new container..."
+            sudo docker run -d --name githubactions-cicd-pipeline -p 80:80 githubactions-cicd-pipeline-new
+            echo "Starting new container..."
 
             # sudo docker run -d \
             #   --name githubactions-cicd-pipeline \
