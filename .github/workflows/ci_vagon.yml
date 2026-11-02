@@ -1,0 +1,69 @@
+name: Deploy Frontend to AWS EC2
+
+on: workflow_dispatch
+  #  push:
+  #    branches:
+  #      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+
+          script: |
+            set -e
+
+            cd ~/githubactions-cicd-pipeline
+
+            echo "Pulling latest code...."
+            git fetch origin
+            git reset --hard origin/main
+
+            echo "Creating env file..."
+            cat <<EOF > .env
+            ${{ secrets.ENV_FILE }}
+             EOF
+
+            # echo "Building Docker image..."
+            # sudo docker build --no-cache -t githubactions-cicd-pipeline-new .
+
+            # echo "Stopping old container..."
+            # sudo docker stop githubactions-cicd-pipeline || true
+            # sudo docker rm githubactions-cicd-pipeline || true
+
+            # echo "Starting new container..."
+
+            # sudo docker run -d \
+            #   --name githubactions-cicd-pipeline \
+            #   -p 3000:80 \
+            #   --restart always \
+            #   githubactions-cicd-pipeline-new
+
+            # echo "Checking container..."
+
+            # sleep 5
+
+            # if ! sudo docker ps | grep githubactions-cicd-pipeline; then
+            #   echo "Container failed"
+            #  sudo  docker logs githubactions-cicd-pipeline
+            #   exit 1
+            # fi
+
+            # echo "Testing frontend..."
+
+            # curl -f http://localhost:3000
+
+            # echo "Cleaning old images..."
+            # sudo docker image prune -f
+
+            # echo "Deployment completed successfully"

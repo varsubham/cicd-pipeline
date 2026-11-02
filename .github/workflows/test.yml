@@ -1,0 +1,336 @@
+Last login: Fri Oct 30 13:51:42 on ttys017
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+Aravindas-MacBook-Pro:~ aravinda$ aws login
+Attempting to open your default browser. If the browser does not open, open the following URL.
+If you are unable to open the URL on this device, run this command again with the '--remote' option.
+
+https://ap-southeast-2.signin.aws.amazon.com/v1/authorize?response_type=code&client_id=arn%3Aaws%3Asignin%3A%3A%3Adevtools%2Fsame-device&state=3f560101-9deb-4d8f-91d5-d3b41a5278e8&code_challenge_method=SHA-256&scope=openid&redirect_uri=http%3A%2F%2F127.0.0.1%3A62875%2Foauth%2Fcallback&code_challenge=j2bNjoQH6nb97SX07AlBUKsUugPKqlQUrWeg8TSqT7k
+
+
+Profile default is already configured to use session arn:aws:sts::491134824785:assumed-role/AccountFullAccessRole/54583408-b071-702b-4562-708b4fb7bb56. Do you want to overwrite it to use arn:aws:iam::772699011367:user/Aravind_JOMS instead? (y/n): y
+
+Updated profile default to use arn:aws:iam::772699011367:user/Aravind_JOMS credentials.
+Aravindas-MacBook-Pro:~ aravinda$ aws ec2 describe-instances \
+>   --instance-ids i-0d4b37a1ab0c9a220 \
+>   --query 'Reservations[].Instances[].{InstanceType:InstanceType,AMI:ImageId,Architecture:Architecture,AZ:Placement.AvailabilityZone}' \
+>   --output table
+
+aws: [ERROR]: An error occurred (InvalidInstanceID.NotFound) when calling the DescribeInstances operation: The instance ID 'i-0d4b37a1ab0c9a220' does not exist
+Aravindas-MacBook-Pro:~ aravinda$ aws ec2 describe-instances \
+>   --instance-ids i-007c1ef74c5d878fe \
+>   --query 'Reservations[].Instances[].{InstanceType:InstanceType,AMI:ImageId,Architecture:Architecture,AZ:Placement.AvailabilityZone}' \
+>   --output table
+
+aws: [ERROR]: An error occurred (InvalidInstanceID.NotFound) when calling the DescribeInstances operation: The instance ID 'i-007c1ef74c5d878fe' does not exist
+Aravindas-MacBook-Pro:~ aravinda$ aws configure get region
+ap-southeast-2
+Aravindas-MacBook-Pro:~ aravinda$ aws ec2 describe-instances \
+>   --instance-ids i-007c1ef74c5d878fe \
+> --region ap-south-1
+  --query 'Reservations[].Instances[].{InstanceType:InstanceType,AMI:ImageId,Architecture:Architecture,AZ:Placement.AvailabilityZone}' \
+  --output table
+{
+    "Reservations": [
+        {
+            "ReservationId": "r-0cd2f6351764c6423",
+            "OwnerId": "772699011367",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1",
+                            "Ebs": {
+                                "AttachTime": "2026-10-28T07:20:55+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-017ebfe326f459af1",
+                                "EbsCardIndex": 0
+                            }
+                        }
+                    ],
+                    "ClientToken": "44135be2-a92d-4d4d-aef2-c383b52c53b6",
+                    "EbsOptimized": false,
+                    "EnaSupport": true,
+                    "Hypervisor": "xen",
+                    "IamInstanceProfile": {
+                        "Arn": "arn:aws:iam::772699011367:instance-profile/JomsEC2DatabaseRole",
+                        "Id": "AIPA3H2DTHET6QV6MHXVF"
+                    },
+                    "NetworkInterfaces": [
+                        {
+                            "Association": {
+                                "IpOwnerId": "amazon",
+                                "PublicDnsName": "ec2-65-2-78-152.ap-south-1.compute.amazonaws.com",
+                                "PublicIp": "65.2.78.152"
+                            },
+                            "Attachment": {
+                                "AttachTime": "2026-10-28T07:20:55+00:00",
+                                "AttachmentId": "eni-attach-01aea4983e777a3e3",
+                                "DeleteOnTermination": true,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupId": "sg-0391d8e0e736b3beb",
+                                    "GroupName": "launch-wizard-3"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "0a:ff:d3:84:f1:7b",
+                            "NetworkInterfaceId": "eni-00d0b113e9698a048",
+                            "OwnerId": "772699011367",
+                            "PrivateDnsName": "ip-172-31-2-248.ap-south-1.compute.internal",
+                            "PrivateIpAddress": "172.31.2.248",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Association": {
+                                        "IpOwnerId": "amazon",
+                                        "PublicDnsName": "ec2-65-2-78-152.ap-south-1.compute.amazonaws.com",
+                                        "PublicIp": "65.2.78.152"
+                                    },
+                                    "Primary": true,
+                                    "PrivateDnsName": "ip-172-31-2-248.ap-south-1.compute.internal",
+                                    "PrivateIpAddress": "172.31.2.248"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-08a667c9fe738a7c7",
+                            "VpcId": "vpc-01261192c735f1a57",
+                            "InterfaceType": "interface",
+                            "Operator": {
+                                "Managed": false
+                            }
+                        }
+                    ],
+                    "RootDeviceName": "/dev/sda1",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [
+                        {
+                            "GroupId": "sg-0391d8e0e736b3beb",
+                            "GroupName": "launch-wizard-3"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "JOMS_WEB_PANEL_TESTING_INSTANCE"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "CpuOptions": {
+                        "CoreCount": 2,
+                        "ThreadsPerCore": 1
+                    },
+                    "CapacityReservationSpecification": {
+                        "CapacityReservationPreference": "open"
+                    },
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "required",
+                        "HttpPutResponseHopLimit": 2,
+                        "HttpEndpoint": "enabled",
+                        "HttpProtocolIpv6": "disabled",
+                        "InstanceMetadataTags": "disabled"
+                    },
+                    "EnclaveOptions": {
+                        "Enabled": false
+                    },
+                    "BootMode": "uefi-preferred",
+                    "PlatformDetails": "Linux/UNIX",
+                    "UsageOperation": "RunInstances",
+                    "UsageOperationUpdateTime": "2026-10-28T07:20:55+00:00",
+                    "PrivateDnsNameOptions": {
+                        "HostnameType": "ip-name",
+                        "EnableResourceNameDnsARecord": true,
+                        "EnableResourceNameDnsAAAARecord": false
+                    },
+                    "MaintenanceOptions": {
+                        "AutoRecovery": "default",
+                        "RebootMigration": "default"
+                    },
+                    "CurrentInstanceBootMode": "legacy-bios",
+                    "NetworkPerformanceOptions": {
+                        "BandwidthWeighting": "default"
+                    },
+                    "Operator": {
+                        "Managed": false,
+                        "HiddenByDefault": false
+                    },
+                    "SecondaryInterfaces": [],
+                    "InstanceId": "i-007c1ef74c5d878fe",
+                    "ImageId": "ami-0c7632fb77f35db43",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-172-31-2-248.ap-south-1.compute.internal",
+                    "PublicDnsName": "ec2-65-2-78-152.ap-south-1.compute.amazonaws.com",
+                    "StateTransitionReason": "",
+                    "KeyName": "JOMS_PARTNER_ADMIN_KEY_PAIR",
+                    "AmiLaunchIndex": 0,
+                    "ProductCodes": [],
+                    "InstanceType": "t2.medium",
+                    "LaunchTime": "2026-10-30T05:45:29+00:00",
+                    "Placement": {
+                        "AvailabilityZoneId": "aps1-az3",
+
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+-- INSERT --
+{
+                        "GroupName": "",
+                        "Tenancy": "default",
+                        "AvailabilityZone": "ap-south-1b"
+                    },
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "SubnetId": "subnet-08a667c9fe738a7c7",
+                    "VpcId": "vpc-01261192c735f1a57",
+                    "PrivateIpAddress": "172.31.2.248",
+                    "PublicIpAddress": "65.2.78.152"
+                }
+            ]
+        }
+    ]
+}
+Aravindas-MacBook-Pro:~ aravinda$ !
+-bash: syntax error near unexpected token `newline'
+Aravindas-MacBook-Pro:~ aravinda$ aws ec2 describe-instances \
+>   --region ap-south-1 \
+>   --instance-ids i-007c1ef74c5d878fe \
+>   --query 'Reservations[].Instances[].{InstanceType:InstanceType,AMI:ImageId,Platform:PlatformDetails,Architecture:Architecture,OS:Image.Platform}' \
+>   --output table
+---------------------------------------------------------------------------------
+|                               DescribeInstances                               |
++------------------------+---------------+---------------+-------+--------------+
+|           AMI          | Architecture  | InstanceType  |  OS   |  Platform    |
++------------------------+---------------+---------------+-------+--------------+
+|  ami-0c7632fb77f35db43 |  x86_64       |  t2.medium    |  None |  Linux/UNIX  |
++------------------------+---------------+---------------+-------+--------------+
+Aravindas-MacBook-Pro:~ aravinda$ aws ec2 describe-images \
+>   --region ap-south-1 \
+>   --image-ids ami-0c7632fb77f35db43 \
+>   --query 'Images[].{AMIName:Name,Description:Description}' \
+>   --output table
+-----------------------------------------------------------------------------------------------------------------------------
+|                                                      DescribeImages                                                       |
++------------------------------------------------------------------------+--------------------------------------------------+
+|                                 AMIName                                |                   Description                    |
++------------------------------------------------------------------------+--------------------------------------------------+
+|  ubuntu/images/hvm-ssd-gp3/ubuntu-resolute-26.04-amd64-server-20261016 |  Canonical, Ubuntu, 26.04, amd64 resolute image  |
++------------------------------------------------------------------------+--------------------------------------------------+
+Aravindas-MacBook-Pro:~ aravinda$ pwd
+/Users/aravinda
+Aravindas-MacBook-Pro:~ aravinda$ cd ~/Desktop/
+Aravindas-MacBook-Pro:Desktop aravinda$ vi s3-policy.json
+Aravindas-MacBook-Pro:Desktop aravinda$ aws ec2 describe-images   --region ap-south-1   --image-ids ami-0c7632fb77f35db43   --query 'Images[].{AMIName:Name,Description:Description}'   --output table
+
+aws: [ERROR]: Unable to create or refresh login credentials due to insufficient permissions. You may be missing permission for the 'signin:CreateOAuth2Token' action.
+Aravindas-MacBook-Pro:Desktop aravinda$ aws ec2 describe-instances   --instance-ids i-007c1ef74c5d878fe   --query 'Reservations[].Instances[].{InstanceType:InstanceType,AMI:ImageId,Architecture:Architecture,AZ:Placement.AvailabilityZone}'   --output table
+
+aws: [ERROR]: An error occurred (InvalidInstanceID.NotFound) when calling the DescribeInstances operation: The instance ID 'i-007c1ef74c5d878fe' does not exist
+Aravindas-MacBook-Pro:Desktop aravinda$ pwd
+name: Deploy React Website to EC2
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$EC2_SSH_KEY" | tr -d '\r' > ~/.ssh/ec2.pem
+          chmod 600 ~/.ssh/ec2.pem
+          ssh-keyscan -H "$EC2_HOST" >> ~/.ssh/known_hosts
+
+      - name: Copy build to EC2
+        run: |
+          ssh -i ~/.ssh/ec2.pem "ec2-user@$EC2_HOST" \
+            'mkdir -p /home/ec2-user/ec2-react/dist'
+
+          scp -i ~/.ssh/ec2.pem -r dist/. \
+            "ec2-user@$EC2_HOST:/home/ec2-user/ec2-react/dist/"
+~
+~
+~
+~
+~
+~
+"ec2-deploy.yml" 40L, 1025B
