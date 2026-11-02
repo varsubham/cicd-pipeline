@@ -34,12 +34,12 @@ jobs:
             ${{ secrets.ENV_FILE }}
              EOF
 
-            # echo "Building Docker image..."
-            # sudo docker build --no-cache -t githubactions-cicd-pipeline-new .
+            echo "Building Docker image..."
+            sudo docker build --no-cache -t githubactions-cicd-pipeline-new .
 
-            # echo "Stopping old container..."
-            # sudo docker stop githubactions-cicd-pipeline || true
-            # sudo docker rm githubactions-cicd-pipeline || true
+            echo "Stopping old container..."
+            sudo docker stop githubactions-cicd-pipeline || true
+            sudo docker rm githubactions-cicd-pipeline || true
 
             # echo "Starting new container..."
 
