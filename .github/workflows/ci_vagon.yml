@@ -51,21 +51,21 @@ jobs:
               --restart always \
               githubactions-cicd-pipeline-new
 
-            # echo "Checking container..."
+            echo "Checking container..."
 
-            # sleep 5
+            sleep 5
 
-            # if ! sudo docker ps | grep githubactions-cicd-pipeline; then
-            #   echo "Container failed"
-            #  sudo  docker logs githubactions-cicd-pipeline
-            #   exit 1
-            # fi
+            if ! sudo docker ps | grep githubactions-cicd-pipeline; then
+               echo "Container failed"
+               sudo  docker logs githubactions-cicd-pipeline
+               exit 1
+            fi
 
-            # echo "Testing frontend..."
+            echo "Testing frontend..."
 
-            # curl -f http://localhost:3000
+            curl -f http://localhost:3000
 
-            # echo "Cleaning old images..."
-            # sudo docker image prune -f
+            echo "Cleaning old images..."
+            sudo docker image prune -f
 
-            # echo "Deployment completed successfully"
+            echo "Deployment completed successfully"
