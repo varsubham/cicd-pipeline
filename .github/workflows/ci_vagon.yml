@@ -42,12 +42,12 @@ jobs:
             sudo docker rm githubactions-cicd-pipeline || true
 
             # echo "Starting new container..."
-            # sudo docker run -d --name githubactions-cicd-pipeline -p 8080:8080 githubactions-cicd-pipeline-new
+            # sudo docker run -d --name githubactions-cicd-pipeline -p 8080:8080  -e PORT=3000 githubactions-cicd-pipeline-new
             # echo "Starting new container..."
 
             sudo docker run -d \
               --name githubactions-cicd-pipeline \
-              -p 3000:3000 \
+              -p 3000:80 -e PORT=3000 \
               --restart always \
               githubactions-cicd-pipeline-new
 
